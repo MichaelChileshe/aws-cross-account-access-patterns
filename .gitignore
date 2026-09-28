@@ -1,0 +1,25 @@
+# Local working files from the build — never commit
+cur.json
+*-logins.json
+/tmp/
+*.tmp
+*.bak
+docs/diagram/*.html
+
+# Credentials / env
+*.pem
+*.key
+.env
+.env.*
+credentials
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.pyc

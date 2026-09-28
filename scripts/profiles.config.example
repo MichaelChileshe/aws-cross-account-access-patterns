@@ -1,0 +1,30 @@
+# Append to ~/.aws/config (back it up first: cp ~/.aws/config ~/.aws/config.bak).
+# Each profile chains off your management-account credentials through the
+# OrganizationAccountAccessRole that AWS Organizations creates in member accounts.
+
+[profile auditor-admin]
+role_arn = arn:aws:iam::AUDITOR_ACCOUNT_ID:role/OrganizationAccountAccessRole
+source_profile = default
+region = us-east-1
+
+[profile fraud-admin]
+role_arn = arn:aws:iam::VENDOR_ACCOUNT_ID:role/OrganizationAccountAccessRole
+source_profile = default
+region = us-east-1
+
+[profile dev-admin]
+role_arn = arn:aws:iam::ANALYTICS_ACCOUNT_ID:role/OrganizationAccountAccessRole
+source_profile = default
+region = us-east-1
+
+# Acts AS the auditor: the audit firm's own role, in the audit firm's account.
+[profile auditor]
+role_arn = arn:aws:iam::AUDITOR_ACCOUNT_ID:role/nkosi-auditor
+source_profile = auditor-admin
+region = us-east-1
+
+# Acts AS the delegated admin in Nkosi's account.
+[profile delegated-admin]
+role_arn = arn:aws:iam::OWNER_ACCOUNT_ID:role/nkosi-delegated-admin
+source_profile = default
+region = us-east-1

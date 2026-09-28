@@ -1,0 +1,15 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AuditorReadsEvidence",
+      "Effect": "Allow",
+      "Principal": { "AWS": "arn:aws:iam::AUDITOR_ACCOUNT_ID:role/nkosi-auditor" },
+      "Action": ["s3:GetObject", "s3:ListBucket"],
+      "Resource": [
+        "arn:aws:s3:::nkosi-audit-evidence-OWNER_ACCOUNT_ID",
+        "arn:aws:s3:::nkosi-audit-evidence-OWNER_ACCOUNT_ID/*"
+      ]
+    }
+  ]
+}

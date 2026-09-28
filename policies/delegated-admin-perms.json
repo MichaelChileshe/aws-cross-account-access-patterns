@@ -1,0 +1,50 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ManageAppRolesOnlyWithBoundary",
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreateRole",
+        "iam:AttachRolePolicy",
+        "iam:DetachRolePolicy",
+        "iam:PutRolePolicy",
+        "iam:DeleteRolePolicy",
+        "iam:PutRolePermissionsBoundary"
+      ],
+      "Resource": "arn:aws:iam::OWNER_ACCOUNT_ID:role/app-*",
+      "Condition": {
+        "StringEquals": { "iam:PermissionsBoundary": "arn:aws:iam::OWNER_ACCOUNT_ID:policy/nkosi-app-boundary" }
+      }
+    },
+    {
+      "Sid": "DeleteAndReadAppRoles",
+      "Effect": "Allow",
+      "Action": ["iam:DeleteRole", "iam:GetRole", "iam:ListAttachedRolePolicies", "iam:ListRolePolicies"],
+      "Resource": "arn:aws:iam::OWNER_ACCOUNT_ID:role/app-*"
+    },
+    {
+      "Sid": "ReadIamGenerally",
+      "Effect": "Allow",
+      "Action": ["iam:ListRoles", "iam:ListPolicies", "iam:GetPolicy", "iam:GetPolicyVersion"],
+      "Resource": "*"
+    },
+    {
+      "Sid": "NeverRemoveABoundary",
+      "Effect": "Deny",
+      "Action": "iam:DeleteRolePermissionsBoundary",
+      "Resource": "arn:aws:iam::OWNER_ACCOUNT_ID:role/*"
+    },
+    {
+      "Sid": "NeverEditTheBoundaryPolicy",
+      "Effect": "Deny",
+      "Action": [
+        "iam:CreatePolicyVersion",
+        "iam:DeletePolicyVersion",
+        "iam:SetDefaultPolicyVersion",
+        "iam:DeletePolicy"
+      ],
+      "Resource": "arn:aws:iam::OWNER_ACCOUNT_ID:policy/nkosi-app-boundary"
+    }
+  ]
+}

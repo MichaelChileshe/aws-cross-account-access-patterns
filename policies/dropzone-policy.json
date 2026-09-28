@@ -1,0 +1,12 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "FraudlyticsDropsScores",
+      "Effect": "Allow",
+      "Principal": { "AWS": "arn:aws:iam::VENDOR_ACCOUNT_ID:root" },
+      "Action": ["s3:PutObject", "s3:GetObjectAcl"],
+      "Resource": "arn:aws:s3:::nkosi-vendor-dropzone-OWNER_ACCOUNT_ID/scores/*"
+    }
+  ]
+}
